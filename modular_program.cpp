@@ -1,4 +1,4 @@
-#include<iostream>
+#include<iostream>//to show modular programming
 using namespace std;
 
 void scan(int a[],int n);
@@ -28,13 +28,13 @@ void scan(int a[],int n)
     cout<<"enter the elements of array"<<endl;
      for(i=0;i<n;i++)
      {
-         cin>>a[i];
+         cin>>a[i];//scans array
      }
 }
 
 int add(int a[],int n)
 {
-    int i,sum=0;
+    int i,sum=0;//sum of all the elements of array
     for(i=0;i<n;i++)
     {
         sum=sum+a[i];
@@ -48,7 +48,7 @@ int product(int a[],int n)
     int i,multi=1;
     for(i=0;i<n;i++)
     {
-        multi=multi*a[i];
+        multi=multi*a[i];//product of all elementd of array
     }
 
     return multi;
