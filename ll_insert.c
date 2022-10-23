@@ -1,121 +1,127 @@
-// A complete working C program to demonstrate all insertion methods
-// on Linked List
-#include <stdio.h>
-#include <stdlib.h>
+//0
+#include<stdio.h>
+#include<stdlib.h>
 
-// A linked list node
+void create();
+void view();
+void insert();
+
 struct Node
 {
-int data;
-struct Node *next;
+    int data;
+    struct Node *next;
 };
 
-/* Given a reference (pointer to pointer) to the head of a list and
-an int, inserts a new node on the front of the list. */
-void push(struct Node** head_ref, int new_data)
-{
-	/* 1. allocate node */
-	struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+struct Node *head=NULL,*tail=NULL,*trav;
 
-	/* 2. put in the data */
-	new_node->data = new_data;
-
-	/* 3. Make next of new node as head */
-	new_node->next = (*head_ref);
-
-	/* 4. move the head to point to the new node */
-	(*head_ref) = new_node;
-}
-
-/* Given a node prev_node, insert a new node after the given
-prev_node */
-void insertAfter(struct Node* prev_node, int new_data)
-{
-	/*1. check if the given prev_node is NULL */
-	if (prev_node == NULL)
-	{
-	printf("the given previous node cannot be NULL");
-	return;
-	}
-
-	/* 2. allocate new node */
-	struct Node* new_node =(struct Node*) malloc(sizeof(struct Node));
-
-	/* 3. put in the data */
-	new_node->data = new_data;
-
-	/* 4. Make next of new node as next of prev_node */
-	new_node->next = prev_node->next;
-
-	/* 5. move the next of prev_node as new_node */
-	prev_node->next = new_node;
-}
-
-/* Given a reference (pointer to pointer) to the head
-of a list and an int, appends a new node at the end */
-void append(struct Node** head_ref, int new_data)
-{
-	/* 1. allocate node */
-	struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
-
-	struct Node *last = *head_ref; /* used in step 5*/
-
-	/* 2. put in the data */
-	new_node->data = new_data;
-
-	/* 3. This new node is going to be the last node, so make next of
-		it as NULL*/
-	new_node->next = NULL;
-
-	/* 4. If the Linked List is empty, then make the new node as head */
-	if (*head_ref == NULL)
-	{
-	*head_ref = new_node;
-	return;
-	}
-
-	/* 5. Else traverse till the last node */
-	while (last->next != NULL)
-		last = last->next;
-
-	/* 6. Change the next of last node */
-	last->next = new_node;
-	return;
-}
-
-// This function prints contents of linked list starting from head
-void printList(struct Node *node)
-{
-while (node != NULL)
-{
-	printf(" %d ", node->data);
-	node = node->next;
-}
-}
-
-/* Driver program to test above functions*/
 int main()
 {
-/* Start with the empty list */
-struct Node* head = NULL;
+    int ch;
+    while(1)
+    {
+        printf("1 for create,2 for view,3 for insert,4 for exit\n");
+        scanf("%d",&ch);
 
-// Insert 6. So linked list becomes 6->NULL
-append(&head, 6);
 
-// Insert 7 at the beginning. So linked list becomes 7->6->NULL
-push(&head, 7);
+        if(ch==1)
+         create();
 
-// Insert 1 at the beginning. So linked list becomes 1->7->6->NULL
-push(&head, 1);
+        if(ch==2)
+         view();
 
-// Insert 4 at the end. So linked list becomes 1->7->6->4->NULL
-append(&head, 4);
+        if(ch==3)
+         insert();
 
-// Insert 8, after 7. So linked list becomes 1->7->8->6->4->NULL
-insertAfter(head->next, 8);
+        if(ch==4)
+         break;
+    }
+    return 0;
+}
 
-printf("\n Created Linked list is: ");
-printList(head);
 
-return 0;
+void create()
+{
+    int n,i;
+
+    struct Node*temp;
+    printf("Enter the number of nodes you want to create\n");
+    scanf("%d",&n);
+
+    for(i=1;i<=n;i++)
+    {
+        temp=(struct Node*)malloc(sizeof(struct Node));
+
+        printf("Enter the data\n");
+        scanf("%d",&temp->data);
+
+        temp->next=NULL;
+
+        if(head==NULL)
+        {
+            head=temp;
+            tail=temp;
+        }
+        else
+        {
+            tail->next=temp;
+            tail=temp;
+        }
+
+    }
+}
+
+
+void view()
+{
+    struct Node*trav;
+    trav=head;
+    while(trav!=NULL)
+    {
+        printf("%d\n",trav->data);
+        trav=trav->next;
+    }
+}
+
+void insert()
+{
+    struct Node*trav;
+    struct Node*temp;
+
+    temp=(struct Node*)malloc(sizeof(struct Node));
+    
+
+    
+    int node;
+    printf("Enter the node after which you want to insert the data\n");
+    scanf("%d",&node);
+
+    printf("Enter the data which you want to insert\n");
+    scanf("%d",&temp->data);
+    temp->next=NULL;
+    
+    
+    trav=head;
+    while(trav->data!=node)
+    {
+        trav=trav->next;
+    }
+
+    if(trav->next!=NULL)
+    {
+     temp->next=trav->next;
+     trav->next=temp;
+
+    }
+
+    else
+    {
+        temp->next=trav->next;
+        trav->next=temp;
+        tail=temp;
+
+    }
+
+
+
+
 }
